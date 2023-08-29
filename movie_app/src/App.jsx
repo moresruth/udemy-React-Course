@@ -3,13 +3,13 @@ import "./App.css";
 // import Navbar from "./components/Navbar/Navbar";
 // import Main from "./components/Main/Main";
 
-import { Navbar, Main } from "./components";
+import { MovieList, Navbar } from "./components";
 
 const App = () => {
   return (
     <div className="app">
       <Navbar />
-      <Main />
+      <MovieList />
     </div>
   );
 };

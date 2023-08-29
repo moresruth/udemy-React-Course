@@ -1,7 +1,9 @@
 import Navbar from './Navbar/Navbar';
-import Main from './Main/Main';
+import MovieList from './MovieList/MovieList';
+import MovieCard from './MovieList/MovieCard';
 
 export {
     Navbar,
-    Main,
+    MovieList,
+    MovieCard,
 };
