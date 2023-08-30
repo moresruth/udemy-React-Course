@@ -1,4 +1,6 @@
 .movie_card {
+  display: flex;
+  justify-content: space-evenly;
   width: 200px;
   height: 300px;
   margin: 15px;
