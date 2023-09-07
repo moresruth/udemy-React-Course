@@ -7,7 +7,7 @@
 
 .navbar > h1 {
   font-size: 30px;
-  color: #ffe400;
+  color: var(--heading_color);
 }
 
 .navbar_links {
@@ -18,7 +18,7 @@
   display: flex;
   align-content: center;
   font-size: 20px;
-  color: white;
+  color: var(--body_color);
   text-decoration: none;
   padding: 15px;
 }

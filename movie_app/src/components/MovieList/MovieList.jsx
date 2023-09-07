@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import _ from "lodash";
 import "./MovieList.css";
 
-import Fire from "../../assets/fire.png";
-import Star from "../../assets/glowing-star.png";
-import Party from "../../assets/partying-face.png";
+// import Fire from "../../assets/fire.png";
+// import Star from "../../assets/glowing-star.png";
+// import Party from "../../assets/partying-face.png";
 import MovieCard from "./MovieCard";
 import FilterGroup from "./FilterGroup";
 
-const MovieList = () => {
+const MovieList = ({ type, title, emoji }) => {
   const [movies, setMovies] = useState([]);
   const [filterMovies, setFilterMovies] = useState([]);
   const [mainRating, setMainRating] = useState(0);
@@ -30,7 +30,7 @@ const MovieList = () => {
 
   const fetchMovies = async () => {
     const response = await fetch(
-      "https://api.themoviedb.org/3/movie/popular?api_key=fcc0f51a304b630f70b787d198f737a7"
+      `https://api.themoviedb.org/3/movie/${type}?api_key=fcc0f51a304b630f70b787d198f737a7`
     );
     const data = await response.json();
     setMovies(data.results);
@@ -55,11 +55,12 @@ const MovieList = () => {
   };
 
   return (
-    <section className=" movie_list ">
+    <section className=" movie_list " id={type}>
       {/* Header */}
       <header className="align_center movie_list_header">
         <h2 className="align_center movie_list_heading">
-          Popular <img src={Fire} alt="fire_emoji" className="navbar_emoji" />
+          {title}{" "}
+          <img src={emoji} alt={`${emoji} icon`} className="navbar_emoji" />
         </h2>
 
         <div className="align_center movie_list_fs ">
