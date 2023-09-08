@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import apiClient from "../../utils/api-client";
 import Loader from "../common/Loader";
 
 const Sellers = () => {
@@ -11,8 +11,8 @@ const Sellers = () => {
   useEffect(() => {
     // fetchSellers();
     setIsLoading(true);
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
+    apiClient
+      .get("/users")
       .then((res) => {
         setSellers(res.data);
         setIsLoading(false);
@@ -41,13 +41,35 @@ const Sellers = () => {
       id: sellers.length + 1,
     };
     setSellers([newSeller, ...sellers]);
-    axios
-      .post("https://jsonplaceholder.typicode.com/users", newSeller)
+    apiClient
+      .post("/users", newSeller)
       .then((res) => setSellers([res.data, ...sellers]))
       .catch((err) => {
         setErrors(err.message);
         setSellers(sellers);
       });
+  };
+
+  const deleteSeller = (id) => {
+    setSellers(sellers.filter((s) => s.id !== id));
+    apiClient.delete(`/users/${id}`).catch((err) => {
+      setErrors(err.message);
+      setSellers(sellers);
+    });
+  };
+
+  // .delete(`https://jsonplaceholder.typicode.com/users/${id}`)
+
+  const updateSeller = (seller) => {
+    const updatedSeller = {
+      ...seller,
+      name: seller.name + "Updated",
+    };
+    setSellers(sellers.map((s) => (s.id === seller.id ? updatedSeller : s)));
+    apiClient.patch(`users/${seller}`, updateSeller).catch((err) => {
+      setErrors(err.message);
+      setSellers(sellers);
+    });
   };
 
   return (
@@ -57,9 +79,21 @@ const Sellers = () => {
       <button onClick={addSeller}>Add Seller</button>
       {isLoading && <Loader />}
       {errors && <em>{errors}</em>}
-      {sellers.map((seller) => (
-        <p key={seller.id}>{seller.name}</p>
-      ))}
+      <table>
+        <tbody>
+          {sellers.map((seller) => (
+            <tr key={seller.id}>
+              <td>{seller.name}</td>
+              <td>
+                <button onClick={() => updateSeller(seller)}>Update</button>
+              </td>
+              <td>
+                <button onClick={() => deleteSeller(seller.id)}>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 };
