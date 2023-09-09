@@ -3,6 +3,7 @@ import HeroSection from "./HeroSection";
 
 import iphone from "../../assets/iphone-14-pro.webp";
 import mac from "../../assets/mac-system-cut.jfif";
+import FeaturedProducts from "./FeaturedProducts";
 const HomePage = () => {
   return (
     <div>
@@ -14,6 +15,7 @@ const HomePage = () => {
         image={iphone}
       />
       {/* Featured Products */}
+      <FeaturedProducts />
       {/* Hero */}
       <HeroSection
         title="Build the Ultimate Setup"
