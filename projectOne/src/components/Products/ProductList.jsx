@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import useData from "../../hooks/useData";
 import ProductCardSkeleton from "./ProductCardSkeleton";
 import { useSearchParams } from "react-router-dom";
-import PaginationPage from "../Common/PaginationPage";
+// import Pagination from "../Common/Pagination";
 
 const ProductsList = () => {
   const [page, setPage] = useState(1);

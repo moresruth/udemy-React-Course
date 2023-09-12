@@ -1,14 +1,15 @@
 import React from "react";
+
 import "./ProductsPage.css";
 import ProductsSidebar from "./ProductsSidebar";
-import ProductList from "./ProductList";
+import ProductsList from "./ProductList";
 
 const ProductsPage = () => {
   return (
     <section className="products_page">
       <ProductsSidebar />
 
-      <ProductList />
+      <ProductsList />
     </section>
   );
 };
