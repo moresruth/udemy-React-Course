@@ -1,28 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Routing from "./components/Routing/Routing";
-// import HomePage from "./components/Home/HomePage";
-// import ProductPages from "./components/Products/ProductsPage";
-// import SingleProduct from "./components/Products/SingleProduct";
-// import CartPage from "./components/Cart/Cartpage";
-// import MyOrderPage from "./components/MyOrder/MyOrderPage";
-// import LoginPage from "./components/Authentication/LoginPage";
-// import SignupPage from "./components/Authentication/SignupPage";
+import { getUser } from "./services/userServices";
 
 const App = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    try {
+      const jwtUser = getUser();
+      if (Date.now() >= jwtUser.exp * 1000) {
+        localStorage.removeItem("token");
+        location.reload();
+      } else {
+        setUser(jwtUser);
+      }
+    } catch (error) {}
+  }, []);
+
   return (
     <div className="app">
-      <Navbar />
+      <Navbar user={user} />
       <main>
-        {/* <HomePage /> */}
-        {/* <ProductPages /> */}
-        {/* <SingleProduct /> */}
-        {/* <CartPage /> */}
-        {/* <MyOrderPage /> */}
-        {/* <LoginPage /> */}
-        {/* <SignUpPage /> */}
-        {/* <SignupPage /> */}
         <Routing />
       </main>
     </div>

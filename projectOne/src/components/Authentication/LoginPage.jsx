@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import "./LoginPage.css";
+import { login } from "../../services/userServices";
 
 const schema = z.object({
   email: z
@@ -23,7 +24,18 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm({ resolver: zodResolver(schema) });
 
-  const onSubmit = (formData) => console.log(formData);
+  const [fromError, setFromError] = useState("");
+
+  const onSubmit = async (formData) => {
+    try {
+      await login(formData);
+      window.location = "/";
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setFromError(err.response.data.message);
+      }
+    }
+  };
 
   return (
     <section className="align_center form_page">
@@ -59,21 +71,8 @@ const LoginPage = () => {
             {errors.password && (
               <em className="form_error">{errors.password.message}</em>
             )}
-            {/* <button
-              type="button"
-              onClick={() =>
-                console.log((passwordRef.current.type = "password"))
-              }
-            >
-              Hide Password
-            </button>
-            <button
-              type="button"
-              onClick={() => console.log((passwordRef.current.type = "text"))}
-            >
-              Show Password
-            </button> */}
           </div>
+          {fromError && <em className="form_error">{fromError}</em>}
           <button type="submit" className="search_button form_submit">
             Submit
           </button>
